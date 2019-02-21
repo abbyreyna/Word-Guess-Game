@@ -6,7 +6,7 @@ var lettersGuessed = [];
 var chosenWord = ""; // length = same
 var userGuess = [];
 
-var wordList = ["cat", "dog", "horse", "parrot"];
+var wordList = ["stealth", "clone", "diana", "assassin"];
 
 var writeToPage = function() {
   document.getElementById("wins").textContent = winsCounter;
@@ -91,3 +91,4 @@ if the user guesses the word then they win
 if the user runs out of guesses, they lose
 
 */
+
