@@ -1,49 +1,48 @@
 var winsCounter = 0;
 var lossesCounter = 0;
-var guessesCounter = 10;
+var guessCounter = 10;
 var lettersGuessed = [];
-
-var chosenWord = ""; // length = same
 var userGuess = [];
+var wordToGuess = ""; 
 
 var wordList = ["stealth", "clone", "diana", "assassin"];
 
 var writeToPage = function() {
   document.getElementById("wins").textContent = winsCounter;
   document.getElementById("losses").textContent = lossesCounter;
-  document.getElementById("remaining").textContent = guessesCounter;
+  document.getElementById("remaining").textContent = guessCounter;
   document.getElementById("guessed").textContent = lettersGuessed;
   document.getElementById("result").textContent = userGuess;
 };
 
-var checkLetter = function(letter) {
+var letterCheck = function(letter) {
   var letterInWord = false;
 
-  for(var i = 0; i < chosenWord.length; i++) {
-    if (letter === chosenWord[i]) {
+  for(var i = 0; i < wordToGuess.length; i++) {
+    if (letter === wordToGuess[i]) {
       letterInWord = true;
-      userGuess[i] = chosenWord[i];
+      userGuess[i] = wordToGuess[i];
     }
   }
 };
 
 var roundOver = function(letter) {
-  checkLetter(letter);
+  letterCheck(letter);
 
-  guessesCounter--;
+  guessCounter--;
 
-  if (guessesCounter === 0) {
+  if (guessCounter === 0) {
     lossesCounter++;
-    alert('You lost');
+    alert('GAME OVER');
   }
 
   writeToPage();
 };
 
 document.onkeyup = function(event) {
-  if (guessesCounter > 0) {
+  if (guessCounter > 0) {
 
-    // only act if it's a letter
+    
     if (event.keyCode >= 65 && event.keyCode <= 90) {
       var letter = event.key.toLowerCase();
 
@@ -57,17 +56,14 @@ document.onkeyup = function(event) {
 var startGame = function() {
   winsCounter = 0;
   lossesCounter = 0;
-  guessesCounter = 10;
+  guessCounter = 10;
   lettersGuessed = [];
-  chosenWord = "";
+  wordToGuess = "";
 
-  //computer to pick a word
   var randomNumber = Math.floor(Math.random() * wordList.length);
-  chosenWord = wordList[randomNumber];
+  wordToGuess = wordList[randomNumber];
 
-  // convert chosen word to underlines
-
-  for(var i = 0; i < chosenWord.length; i++) {
+  for(var i = 0; i < wordToGuess.length; i++) {
     userGuess.push('_');
   }
 
@@ -75,20 +71,4 @@ var startGame = function() {
 };
 
 startGame();
-
-/*
-
-want to track the score
-
-want to have a list of words
-
-let user type a letter
-
-want to check the letter is in the word
-
-if the user guesses the word then they win
-
-if the user runs out of guesses, they lose
-
-*/
 
